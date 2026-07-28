@@ -1,34 +1,28 @@
-'use strict';
+// 🐛 FILE NÀY CÓ LỖI LINT CỐ Ý - CHỈ DÙNG CHO MỤC ĐÍCH ĐÀO TẠO
+// Lỗi 1: Thiếu dấu chấm phẩy
+// Lỗi 2: Biến 'version' không được sử dụng
+'use strict'
 
-const _ = require('lodash');
+const _ = require('lodash')
 
-/**
- * Cộng hai số.
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
+// 🐛 LINT ERROR: biến 'version' được khai báo nhưng không bao giờ dùng
+const version = '1.0.0'
+
 function add(a, b) {
   if (!_.isNumber(a) || !_.isNumber(b) || isNaN(a) || isNaN(b)) {
-    throw new TypeError('Parameters must be numbers');
+    throw new TypeError('Parameters must be numbers')
   }
-  return a + b;
+  return a + b
 }
 
-/**
- * Chia a cho b.
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
 function divide(a, b) {
   if (!_.isNumber(a) || !_.isNumber(b) || isNaN(a) || isNaN(b)) {
-    throw new TypeError('Parameters must be numbers');
+    throw new TypeError('Parameters must be numbers')
   }
   if (b === 0) {
-    throw new Error('Division by zero is not allowed');
+    throw new Error('Division by zero is not allowed')
   }
-  return a / b;
+  return a / b
 }
 
-module.exports = { add, divide };
+module.exports = { add, divide }
