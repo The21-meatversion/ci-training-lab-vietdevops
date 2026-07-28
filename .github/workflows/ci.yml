@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build, Test & Lint
+    name: Build, Test, Lint & Docker
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,6 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
+      - name: Build Docker image
+        run: docker build -t ci-training-lab:${{ github.sha }} .
