@@ -4,9 +4,8 @@ const { add, divide } = require('../src/services/mathService');
 
 describe('mathService - add()', () => {
   test('cộng hai số dương', () => {
-    // 🐛 BUG: Kết quả mong đợi sai! 1 + 2 = 3, không phải 4
-    // Pipeline sẽ FAIL tại bước này
-    expect(add(1, 2)).toBe(4);
+    // ✅ FIX: Sửa kết quả mong đợi đúng: 1 + 2 = 3
+    expect(add(1, 2)).toBe(3);
   });
 
   test('cộng hai số âm', () => {
@@ -15,6 +14,10 @@ describe('mathService - add()', () => {
 
   test('cộng với số 0', () => {
     expect(add(0, 5)).toBe(5);
+  });
+
+  test('cộng số thực', () => {
+    expect(add(1.5, 2.5)).toBe(4);
   });
 
   test('ném TypeError khi a không phải số', () => {
