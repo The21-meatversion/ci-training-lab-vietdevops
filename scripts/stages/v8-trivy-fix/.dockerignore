@@ -1,0 +1,32 @@
+# Bỏ qua thư mục dependencies
+node_modules/
+
+# Bỏ qua git history
+.git/
+.gitignore
+
+# Bỏ qua files môi trường — không copy secret vào image!
+.env
+.env.*
+*.secret
+
+# Bỏ qua test files và coverage
+tests/
+coverage/
+jest.config.js
+.eslintrc.js
+
+# Bỏ qua training scripts — không cần trong production image
+scripts/
+
+# Bỏ qua documentation
+docs/
+README.md
+TRAINER_GUIDE.md
+*.md
+
+# Bỏ qua OS và IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

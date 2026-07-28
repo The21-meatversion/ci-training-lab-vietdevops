@@ -1,0 +1,19 @@
+title = "CI Training Lab - Gitleaks Configuration"
+
+# Kế thừa tất cả các rule mặc định của Gitleaks
+[extend]
+useDefault = true
+
+# Rule tùy chỉnh: phát hiện API Key cứng trong mã nguồn
+[[rules]]
+id = "hardcoded-api-key"
+description = "Phát hiện API key hardcode trong source code - vi phạm bảo mật nghiêm trọng"
+regex = '''(?i)(api[_-]?key)\s*[=:]\s*["']([^"'\s]{8,})["']'''
+tags = ["security", "api-key", "hardcoded-secret"]
+secretGroup = 2
+
+  # Cho phép các giá trị placeholder
+  [[rules.allowlist]]
+  description = "Cho phép các giá trị placeholder và example"
+  regexTarget = "secret"
+  regex = '''(?i)(placeholder|example|replace[_-]?me|your[_-]?key|dummy|fake|test[_-]?key)'''
