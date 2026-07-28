@@ -1,21 +1,41 @@
-# ⚠️  DOCKERFILE NÀY CÓ NHIỀU VẤN ĐỀ BẢO MẬT - CHỈ DÙNG CHO MỤC ĐÍCH ĐÀO TẠO ⚠️
-#
-# Vấn đề 1: Dùng tag 'latest' - image có thể thay đổi bất ngờ
-# Vấn đề 2: Chạy với user root - rủi ro bảo mật cao
-# Vấn đề 3: COPY . . trước npm install - phá vỡ Docker layer cache
-# Vấn đề 4: Không có .dockerignore - copy cả node_modules, .git, .env vào image
-# Vấn đề 5: npm install thay vì npm ci - không đảm bảo version nhất quán
-# Vấn đề 6: Không có HEALTHCHECK
-# Vấn đề 7: Single stage - dev dependencies được copy vào production image
-
-FROM node:latest
+# =============================================================================
+# Stage 1: Builder — cài đặt dependencies production
+# =============================================================================
+FROM node:22.17-alpine AS builder
 
 WORKDIR /app
 
-COPY . .
+# ✅ Copy package files TRƯỚC để Docker cache layer này khi code thay đổi
+COPY package*.json ./
 
-RUN npm install
+# ✅ npm ci thay vì npm install — đảm bảo version nhất quán với lock file
+# ✅ --only=production — không cài dev dependencies vào production image
+# ✅ npm cache clean — giảm kích thước image
+RUN npm ci --only=production && npm cache clean --force
+
+# =============================================================================
+# Stage 2: Production — image tối thiểu, chạy non-root
+# =============================================================================
+FROM node:22.17-alpine AS production
+
+# ✅ Tạo user và group không có quyền root — nguyên tắc least privilege
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+WORKDIR /app
+
+# ✅ Chỉ copy production node_modules từ builder — không có dev deps
+COPY --from=builder /app/node_modules ./node_modules
+
+# ✅ Chỉ copy source code cần thiết
+COPY src/ ./src/
+
+# ✅ Chuyển sang non-root user
+USER appuser
 
 EXPOSE 3000
+
+# ✅ Health check — cho phép orchestrator biết container có healthy không
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
 
 CMD ["node", "src/app.js"]
