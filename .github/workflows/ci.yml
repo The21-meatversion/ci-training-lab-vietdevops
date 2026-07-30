@@ -18,7 +18,7 @@ jobs:
       node-version: '22'
       image-name: ${{ github.repository }}
       # --- GitOps: cập nhật image tag sau khi push ---
-      deploy-repo: 'rockman88v/ci-training-deployment.git'  # repo chứa Helm chart/config manifest
+      deploy-repo: 'rockman88v/ci-training-deployment'  # repo chứa Helm chart/config manifest
       helm-chart-path: 'ci-training-lab/'                   # đường dẫn tới thư mục Helm chart trong repo đó
       values-file: 'values.yaml'                            # tên file values
       image-tag-key: 'image.tag'                            # YAML key (dot-notation) chứa image tag
