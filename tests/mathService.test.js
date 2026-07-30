@@ -5,7 +5,7 @@ const { add, divide } = require('../src/services/mathService');
 describe('mathService - add()', () => {
   test('cộng hai số dương', () => {
     // 🐛 BUG: Kết quả mong đợi sai! 1 + 2 = 3, không phải 4
-    // Pipeline sẽ FAIL tại bước này
+    // Pipeline sẽ FAIL tại bước này 
     expect(add(1, 2)).toBe(3);
   });
 
