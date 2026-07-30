@@ -7,9 +7,13 @@
 const config = {
   // 🐛 SECURITY BUG: KHÔNG BAO GIỜ hardcode secret trong code!
   // Sử dụng biến môi trường thay thế: process.env.API_KEY
-  apiKey: 'sk-training-hardcoded-key-do-not-use-in-prod',
+  //apiKey: 'sk-training-hardcoded-key-do-not-use-in-prod',
   port: parseInt(process.env.PORT, 10) || 3000,
   nodeEnv: process.env.NODE_ENV || 'development',
 };
+
+if (!config.apiKey && process.env.NODE_ENV !== 'test') {
+  console.warn('WARNING: API_KEY is not set')
+}
 
 module.exports = config;
