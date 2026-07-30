@@ -6,7 +6,7 @@ describe('mathService - add()', () => {
   test('cộng hai số dương', () => {
     // 🐛 BUG: Kết quả mong đợi sai! 1 + 2 = 3, không phải 4
     // Pipeline sẽ FAIL tại bước này
-    expect(add(1, 2)).toBe(4);
+    expect(add(1, 2)).toBe(3);
   });
 
   test('cộng hai số âm', () => {
