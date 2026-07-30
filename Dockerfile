@@ -16,7 +16,10 @@ RUN npm ci --only=production && npm cache clean --force
 # =============================================================================
 # Stage 2: Production — image tối thiểu, chạy non-root
 # =============================================================================
-FROM node:22.17-alpine AS production
+FROM node:22.19-alpine AS production
+
+RUN apk update && apk upgrade --no-cache && rm -rf /var/cache/apk/*
+
 
 # ✅ Tạo user và group không có quyền root — nguyên tắc least privilege
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
