@@ -13,7 +13,7 @@ const config = {
 };
 
 if (!config.apiKey && process.env.NODE_ENV !== 'test') {
-  console.warn('WARNING: API_KEY is not set')
+  console.warn('WARNING: API_KEY is not set');
 }
 
 module.exports = config;
