@@ -296,3 +296,4 @@ A: Có, với `fetch-depth: 0`. Vì vậy dù đã xoá secret ở v10, secret v
 
 MIT License — xem [LICENSE](LICENSE) để biết thêm.
 
+# test
