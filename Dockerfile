@@ -8,7 +8,9 @@
 # Vấn đề 6: Không có HEALTHCHECK
 # Vấn đề 7: Single stage - dev dependencies được copy vào production image
 
-FROM node:latest
+FROM node:22.23.2-alpine
+
+RUN npm install -g npm@latest
 
 WORKDIR /app
 
