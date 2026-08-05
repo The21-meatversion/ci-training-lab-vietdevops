@@ -21,9 +21,7 @@
     "jest": "^29.7.0"
   },
   "overrides": {
-    "brace-expansion": "5.0.8"
-  },
-  "overrides": {
+    "brace-expansion": "5.0.8",
     "ip-address": "10.3.1"
   }
 
